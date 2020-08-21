@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>从零开始云番外(1) - nyanpasus&#39;S site</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="nyanpasus" /><meta name="description" content="ESXI 6.7封装网卡驱动(Windows)1 0. 简介 ESXI提供的镜像中并没有包含非Intel网卡的驱动，所以需要额外进行封装。
+虽然 ESXI 7.0已经发布，但是对应的网卡驱动还未更新。
+" /><meta name="keywords" content="腾讯云, Ubuntu" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.74.3 with theme even" />
+
+
+<link rel="canonical" href="https://www.nyanpasus.com/post/start_from_scratch_-1/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.651e6917abb0239242daa570c2bec9867267bbcd83646da5a850afe573347b44.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="从零开始云番外(1)" />
+<meta property="og:description" content="ESXI 6.7封装网卡驱动(Windows)1
+0. 简介
+ESXI提供的镜像中并没有包含非Intel网卡的驱动，所以需要额外进行封装。
+虽然 ESXI 7.0已经发布，但是对应的网卡驱动还未更新。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.nyanpasus.com/post/start_from_scratch_-1/" />
+<meta property="article:published_time" content="2020-08-21T14:27:55+08:00" />
+<meta property="article:modified_time" content="2020-08-21T14:27:55+08:00" />
+<meta itemprop="name" content="从零开始云番外(1)">
+<meta itemprop="description" content="ESXI 6.7封装网卡驱动(Windows)1
+0. 简介
+ESXI提供的镜像中并没有包含非Intel网卡的驱动，所以需要额外进行封装。
+虽然 ESXI 7.0已经发布，但是对应的网卡驱动还未更新。">
+<meta itemprop="datePublished" content="2020-08-21T14:27:55+08:00" />
+<meta itemprop="dateModified" content="2020-08-21T14:27:55+08:00" />
+<meta itemprop="wordCount" content="1202">
+
+
+
+<meta itemprop="keywords" content="从零开始云,番外," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="从零开始云番外(1)"/>
+<meta name="twitter:description" content="ESXI 6.7封装网卡驱动(Windows)1
+0. 简介
+ESXI提供的镜像中并没有包含非Intel网卡的驱动，所以需要额外进行封装。
+虽然 ESXI 7.0已经发布，但是对应的网卡驱动还未更新。"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">nyanpasus&#39;S site</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">文章</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">类型</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">nyanpasus&#39;S site</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">首页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">文章</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">类型</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">从零开始云番外(1)</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-08-21 </span>
+        <div class="post-category">
+            <a href="/categories/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E4%BA%91/"> 从零开始云 </a>
+            </div>
+          <span class="more-meta"> 约 1202 字 </span>
+          <span class="more-meta"> 预计阅读 3 分钟 </span>
+        
+      </div>
+    </header>
+
+    
+    <div class="post-content">
+      <h2 id="esxi-67封装网卡驱动windows1">ESXI 6.7封装网卡驱动(Windows)<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h2>
+<h3 id="0-简介">0. 简介</h3>
+<p>ESXI提供的镜像中并没有包含非Intel网卡的驱动，所以需要额外进行封装。</p>
+<p>虽然 ESXI 7.0已经发布，但是对应的网卡驱动还未更新。</p>
+<h3 id="1--获取vmware-vsphere-hypervisor-esxi-67u3b">1.  获取VMware vSphere Hypervisor (ESXi) 6.7U3b</h3>
+<ol>
+<li>
+<p>进入<a href="https://www.vmware.com/">VMware官网</a></p>
+</li>
+<li>
+<p>点击主页上方的Download，在菜单中选择<a href="https://www.vmware.com/go/download-vsphere">vSphere</a></p>
+<p><img src="../../images/Snipaste_2020-05-01_09-38-07.jpg" alt="vSphere"></p>
+</li>
+<li>
+<p>选择<strong>Select Version</strong>切换至 6.7</p>
+</li>
+<li>
+<p>下拉找到 <strong>Enterprise Plus -  VMware vSphere Hypervisor (ESXi) 6.7U3b</strong>，点击后方的Go to Downloads</p>
+</li>
+<li>
+<p>跳转后选择 <strong>VMware vSphere Hypervisor (ESXi) Offline Bundle</strong>后的Download Now</p>
+</li>
+<li>
+<p>跳转到登录页面后，如果没有账号，点击<strong>Sign up now</strong>注册或者直接登录账户</p>
+</li>
+<li>
+<p>登录成功后，同意条款即开始下载。</p>
+</li>
+</ol>
+<h3 id="2-下载其他辅助工具">2. 下载其他辅助工具</h3>
+<ol>
+<li>
+<p><a href="https://www.vmware.com/support/developer/PowerCLI/">VMware PowerCLI</a></p>
+<ol start="2">
+<li>打开PowerShell，输入<code>Install-Module -Name VMware.PowerCLI</code></li>
+<li>首次安装时，PowerShell界面上提示需要安装NuGet，输入y，最上方会出现进度条，慢慢等待</li>
+</ol>
+<p><img src="../../images/Snipaste_2020-05-01_09-53-05.jpg" alt="vmware_powercli"></p>
+<ol start="3">
+<li>非首次安装，会直接提示，这个一个不受信任的仓库，输入y，最上方会出现进度条，慢慢等待</li>
+</ol>
+<p><img src="../../images/Snipaste_2020-05-01_10-14-55.jpg" alt="untrusted repo"></p>
+<p>如果下载耗时较长，可以使用<a href="https://code.vmware.com/web/tool/6.5.4/vmware-powercli">VMware PowerCLI 6.5.4</a>，安装方式参考<a href="https://blog.whsir.com/post-4462.html">ESXI6.7网卡驱动封装之离线封装</a></p>
+</li>
+<li>
+<p><a href="https://www.v-front.de/p/esxi-customizer-ps.html">ESXi-Customizer-PS</a></p>
+<ol>
+<li>目前支持ESXI 7的版本已经迁移至<a href="https://github.com/VFrontDe/ESXi-Customizer-PS">Github</a></li>
+</ol>
+</li>
+<li>
+<p><a href="https://vibsdepot.v-front.de/wiki/index.php/List_of_currently_available_ESXi_packages">网卡驱动</a></p>
+<ol>
+<li>Windows查看网卡型号</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="c"># 在CMD或者PowerShell中输入systeminfo</span>
+<span class="c"># Network Card(s): [01] Realtek PCIe GbE Family Controller</span>
+<span class="c"># 				   [02] ...</span>
+<span class="c"># [0n]后面跟的就是网卡型号</span>
+</code></pre></td></tr></table>
+</div>
+</div><ol start="2">
+<li>Linux查看网卡型号</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">lspci <span class="p">|</span> grep Ethernet 
+</code></pre></td></tr></table>
+</div>
+</div><ol start="3">
+<li>在<a href="https://vibsdepot.v-front.de/wiki/index.php/List_of_currently_available_ESXi_packages">网站</a>对应的驱动，例如1中的<code>Realtek PCIe GbE Family Controller</code>对应<a href="https://vibsdepot.v-front.de/wiki/index.php/Net55-r8168">net55-r8168</a></li>
+<li>点击对应驱动的链接后，在最下方<strong>Direct Download links</strong> 下载<strong>VIB File</strong> 而非<strong>Offline Bundle</strong></li>
+</ol>
+</li>
+</ol>
+<h3 id="3-开始封装">3. 开始封装</h3>
+<ol>
+<li>
+<p>将所有下载的镜像，文件都放在同一个文件夹中（例：<code>D:\img</code>)，将网卡驱动放在更深一层的文件夹中（例：<code>D:\img\driver</code>打开PowerShell</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="c"># 确认相关文件是否都已放入</span>
+<span class="n">d:</span>
+<span class="nb">cd </span><span class="p">.\</span><span class="n">img</span><span class="p">\</span>
+<span class="nb">ls
+</span><span class="nb"></span>   
+   
+    <span class="n">Directory</span><span class="err">:</span> <span class="n">D:</span><span class="p">\</span><span class="n">img</span>
+   
+   
+<span class="n">Mode</span>                <span class="n">LastWriteTime</span>         <span class="n">Length</span> <span class="n">Name</span>
+<span class="p">----</span>                <span class="p">-------------</span>         <span class="p">------</span> <span class="p">----</span>
+<span class="n">d</span><span class="p">-----</span>         <span class="n">2020</span><span class="p">/</span><span class="n">5</span><span class="p">/</span><span class="n">2</span>     <span class="n">11</span><span class="err">:</span><span class="n">57</span>                <span class="n">driver</span>
+<span class="n">-a</span><span class="p">----</span>         <span class="n">2020</span><span class="p">/</span><span class="n">5</span><span class="p">/</span><span class="n">2</span>     <span class="n">11</span><span class="err">:</span><span class="n">24</span>          <span class="n">21986</span> <span class="n">ESXi-Customizer-PS</span><span class="p">.</span><span class="n">ps1</span>
+<span class="n">-a</span><span class="p">----</span>        <span class="n">2020</span><span class="p">/</span><span class="n">4</span><span class="p">/</span><span class="n">29</span>     <span class="n">11</span><span class="err">:</span><span class="n">14</span>      <span class="n">473650008</span> <span class="n">ESXi670</span><span class="p">-</span><span class="n">201912001</span><span class="p">.</span><span class="n">zip</span>
+   
+<span class="nb">cd </span><span class="p">.\</span><span class="n">driver</span><span class="p">\</span>
+<span class="nb">ls
+</span><span class="nb"></span>   
+   
+    <span class="n">Directory</span><span class="err">:</span> <span class="n">D:</span><span class="p">\</span><span class="n">img</span><span class="p">\</span><span class="n">driver</span>
+   
+   
+<span class="n">Mode</span>                <span class="n">LastWriteTime</span>         <span class="n">Length</span> <span class="n">Name</span>
+<span class="p">----</span>                <span class="p">-------------</span>         <span class="p">------</span> <span class="p">----</span>
+<span class="n">-a</span><span class="p">----</span>         <span class="n">2020</span><span class="p">/</span><span class="n">5</span><span class="p">/</span><span class="n">2</span>     <span class="n">11</span><span class="err">:</span><span class="n">44</span>        <span class="n">1142562</span> <span class="n">net55-r8168</span><span class="p">-</span><span class="n">8</span><span class="p">.</span><span class="n">045a-napi</span><span class="p">.</span><span class="n">x86_64</span><span class="p">.</span><span class="n">vib</span>
+   
+<span class="c"># 更改执行策略，参考https://docs.microsoft.com/zh-cn/powershell/module/microsoft.powershell.core/about/about_execution_policies?view=powershell-7</span>
+<span class="nb">Set-ExecutionPolicy</span> <span class="n">-ExecutionPolicy</span> <span class="n">Unrestricted</span> <span class="n">-Scope</span> <span class="n">CurrentUser</span>
+   
+<span class="c"># 输入y同意更改执行策略</span>
+<span class="n">Execution</span> <span class="n">Policy</span> <span class="n">Change</span>
+<span class="n">The</span> <span class="n">execution</span> <span class="n">policy</span> <span class="n">helps</span> <span class="n">protect</span> <span class="n">you</span> <span class="n">from</span> <span class="n">scripts</span> <span class="n">that</span> <span class="n">you</span> <span class="k">do</span> <span class="n">not</span> <span class="n">trust</span><span class="p">.</span> <span class="n">Changing</span> <span class="n">the</span> <span class="n">execution</span> <span class="n">policy</span> <span class="n">might</span> <span class="n">expose</span>
+<span class="n">you</span> <span class="n">to</span> <span class="n">the</span> <span class="n">security</span> <span class="n">risks</span> <span class="n">described</span> <span class="k">in</span> <span class="n">the</span> <span class="n">about_Execution_Policies</span> <span class="n">help</span> <span class="n">topic</span> <span class="n">at</span>
+<span class="n">https</span><span class="err">:</span><span class="p">/</span><span class="n">go</span><span class="p">.</span><span class="n">microsoft</span><span class="p">.</span><span class="n">com</span><span class="p">/</span><span class="n">fwlink</span><span class="p">/</span><span class="k">?</span><span class="n">LinkID</span><span class="p">=</span><span class="n">135170</span><span class="p">.</span> <span class="k">Do</span> <span class="n">you</span> <span class="n">want</span> <span class="n">to</span> <span class="n">change</span> <span class="n">the</span> <span class="n">execution</span> <span class="n">policy</span><span class="p">?</span>
+<span class="no">[Y] Yes  [A] Yes to All  [N] No  [L] No to All  [S]</span> <span class="n">Suspend</span>  <span class="p">[?]</span> <span class="n">Help</span> <span class="p">(</span><span class="k">default</span> <span class="n">is</span> <span class="s2">&#34;N&#34;</span><span class="p">)</span><span class="err">:</span> <span class="n">y</span>
+   
+<span class="nb">cd </span><span class="p">..</span>
+   
+<span class="c"># 导入 VMware.PowerCLI</span>
+<span class="nb">Import-Module</span> <span class="n">VMware</span><span class="p">.</span><span class="n">PowerCLI</span>
+   
+<span class="c"># 封装镜像，命令参考 https://www.v-front.de/p/esxi-customizer-ps.html</span>
+<span class="c"># -izip 表示使用本地镜像 -pkgDir 使用本地驱动文件</span>
+<span class="p">.\</span><span class="n">ESXi-Customizer-PS</span><span class="p">.</span><span class="n">ps1</span> <span class="n">-izip</span> <span class="p">.\</span><span class="n">ESXi670</span><span class="p">-</span><span class="n">201912001</span><span class="p">.</span><span class="n">zip</span> <span class="n">-pkgDir</span> <span class="p">.\</span><span class="n">driver</span><span class="p">\</span><span class="n">net55-r8168</span><span class="p">-</span><span class="n">8</span><span class="p">.</span><span class="n">045a-napi</span><span class="p">.</span><span class="n">x86_64</span><span class="p">.</span><span class="n">vib</span>
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>出现<code>All done</code>标识封装完成，此时在文件夹中可以找到新生成的镜像。</p>
+</li>
+</ol>
+<h3 id="4-制作u盘启动盘">4. 制作U盘启动盘</h3>
+<ol>
+<li>
+<p>使用<a href="https://ubuntu.com/tutorials/tutorial-create-a-usb-stick-on-windows#2-requirements">Ubuntu官方推荐</a>的U盘制作工具<a href="https://rufus.ie/">rufus</a></p>
+</li>
+<li>
+<p>插入Upan后打开软件，选择镜像文件创建即可。</p>
+<p><img src="../../images/Snipaste_2020-05-02_12-41-39.jpg" alt="rufus"></p>
+</li>
+</ol>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p>参考<a href="https://blog.whsir.com/post-4462.html">ESXI6.7网卡驱动封装之离线封装</a> <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
+    </div>
+
+    
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E4%BA%91/">从零开始云</a>
+          <a href="/tags/%E7%95%AA%E5%A4%96/">番外</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/start_from_scratch_2/">
+            <span class="next-text nav-default">从零开始云(2)</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:your@email.com" class="iconfont icon-email" title="email"></a>
+      <a href="http://localhost:1313" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="http://localhost:1313" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="http://localhost:1313" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="http://localhost:1313" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="http://localhost:1313" class="iconfont icon-google" title="google"></a>
+      <a href="http://localhost:1313" class="iconfont icon-github" title="github"></a>
+      <a href="http://localhost:1313" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="http://localhost:1313" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="http://localhost:1313" class="iconfont icon-douban" title="douban"></a>
+      <a href="http://localhost:1313" class="iconfont icon-pocket" title="pocket"></a>
+      <a href="http://localhost:1313" class="iconfont icon-tumblr" title="tumblr"></a>
+      <a href="http://localhost:1313" class="iconfont icon-instagram" title="instagram"></a>
+      <a href="http://localhost:1313" class="iconfont icon-gitlab" title="gitlab"></a>
+      <a href="http://localhost:1313" class="iconfont icon-bilibili" title="bilibili"></a>
+  <a href="https://www.nyanpasus.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">沪ICP备20004938号-1</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

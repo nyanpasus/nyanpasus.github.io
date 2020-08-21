@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>从零开始云(1) - nyanpasus&#39;S site</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="nyanpasus" /><meta name="description" content="重装系统1" /><meta name="keywords" content="腾讯云, Ubuntu" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.74.3 with theme even" />
+
+
+<link rel="canonical" href="https://www.nyanpasus.com/post/start_from_scratch_1/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.651e6917abb0239242daa570c2bec9867267bbcd83646da5a850afe573347b44.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="从零开始云(1)" />
+<meta property="og:description" content="重装系统1" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.nyanpasus.com/post/start_from_scratch_1/" />
+<meta property="article:published_time" content="2020-08-21T14:19:19+08:00" />
+<meta property="article:modified_time" content="2020-08-21T14:19:19+08:00" />
+<meta itemprop="name" content="从零开始云(1)">
+<meta itemprop="description" content="重装系统1">
+<meta itemprop="datePublished" content="2020-08-21T14:19:19+08:00" />
+<meta itemprop="dateModified" content="2020-08-21T14:19:19+08:00" />
+<meta itemprop="wordCount" content="1108">
+
+
+
+<meta itemprop="keywords" content="从零开始云," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="从零开始云(1)"/>
+<meta name="twitter:description" content="重装系统1"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">nyanpasus&#39;S site</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">文章</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">类型</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">nyanpasus&#39;S site</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">首页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">文章</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">类型</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">从零开始云(1)</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-08-21 </span>
+        <div class="post-category">
+            <a href="/categories/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E4%BA%91/"> 从零开始云 </a>
+            </div>
+          <span class="more-meta"> 约 1108 字 </span>
+          <span class="more-meta"> 预计阅读 3 分钟 </span>
+        
+      </div>
+    </header>
+
+    
+    <div class="post-content">
+      <h2 id="重装系统1">重装系统<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></h2>
+<p>咳咳，其实很多人都知道，国内的云平台的镜像都是”加料“的，并且因为机器配置有限，所以第一步就来重装下系统~</p>
+<p>今天是 2020-04-25，本次决定尝鲜昨天刚刚发布了Ubuntu 20.04 LTS。</p>
+<ol start="0">
+<li>
+<p>我们首先要额外购买一块云硬盘，最低配置(高性能云硬盘-10G-按量计费)即可，腾讯云中仅需0.01元/小时，但因为是预付费，所以需要先给<a href="https://console.cloud.tencent.com/expense/recharge">账户充值</a>0.01元，否则会创建失败。</p>
+<p><img src="../../images/Snipaste_2020-04-25_17-26-47.jpg" alt="data_storage"></p>
+</li>
+<li>
+<p>安装CentOS 7的镜像(若使用Ubuntu则需要其他方式设置步骤7)。</p>
+</li>
+</ol>
+<p><img src="../../images/Snipaste_2020-04-25_15-43-50.jpg" alt="reinstall os"></p>
+<ol start="2">
+<li>下载ISO镜像并保存：</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># 建议使用镜像站下载，Ubuntu镜像站地址列表https://launchpad.net/ubuntu/+cdmirrors?_ga=2.212473748.1617762926.1587788417-2021852887.1587644847</span>
+wget https://mirrors.tuna.tsinghua.edu.cn/ubuntu-releases/20.04/ubuntu-20.04-live-server-amd64.iso
+</code></pre></td></tr></table>
+</div>
+</div><p>​		下载完成后按照Ubuntu官网的建议进行<a href="https://ubuntu.com/tutorials/tutorial-how-to-verify-ubuntu">验证</a>以保证文件完整性：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># Run this command in your terminal in the directory the iso was downloaded to verify the SHA256 checksum:</span>
+<span class="nb">echo</span> <span class="s2">&#34;caf3fd69c77c439f162e2ba6040e9c320c4ff0d69aad1340a514319a9264df9f *ubuntu-20.04-live-server-amd64.iso&#34;</span> <span class="p">|</span> shasum -a <span class="m">256</span> --check
+<span class="c1"># You should get the following output:</span>
+ubuntu-20.04-live-server-amd64.iso: OK
+</code></pre></td></tr></table>
+</div>
+</div><ol start="3">
+<li>
+<p><a href="https://cloud.tencent.com/document/product/362/5745">挂载</a>并<a href="https://cloud.tencent.com/document/product/362/6734">初始化</a>云硬盘(下文中假设该云硬盘挂载在/data)。</p>
+<ol>
+<li>有两种方式在控制台处挂载，如果控制台一直显示挂载中，建议刷新浏览器页面：</li>
+</ol>
+<p><img src="../../images/Snipaste_2020-04-26_23-30-16.jpg" alt="mount_disk"></p>
+<ol start="2">
+<li>控制台挂载成功后，按照<a href="https://cloud.tencent.com/document/product/362/6734">腾讯云文档</a>进入主机操作，需要执行步骤7-12（CentOS 7默认创建的就是root账户，如果是Ubuntu，使用<code>sudo passwd root</code>设置root密码）。</li>
+</ol>
+</li>
+<li>
+<p>将ISO镜像保存在数据盘的目录(/data)中：</p>
+</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">mv ubuntu-20.04-live-server-amd64.iso /data
+</code></pre></td></tr></table>
+</div>
+</div><ol start="5">
+<li><a href="https://cloud.tencent.com/document/product/362/6734">初始化</a>云硬盘步骤4时如果未记录下硬盘的UUID，可以通过<code>blkid /dev/vdb</code>获取。</li>
+<li>编辑grub配置文件：</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">vi /etc/grub.d/40_custom
+<span class="c1"># 在最下方添加如下语句</span>
+menuentry <span class="s2">&#34;ubuntu-20.04-live-server-amd64.iso&#34;</span> <span class="o">{</span>
+    <span class="nb">set</span> <span class="nv">iso_path</span><span class="o">=</span><span class="s2">&#34;/ubuntu-20.04-live-server-amd64.iso&#34;</span>
+    loopback loop <span class="o">(</span>hd1<span class="o">)</span>/<span class="nv">$iso_path</span>
+    linux <span class="o">(</span>loop<span class="o">)</span>/casper/vmlinuz inst.stage2<span class="o">=</span>hd:UUID<span class="o">=</span><span class="s2">&#34;4b256980-566e-4375-9814-9eb4d150e356&#34;</span> noeject iso-scan/filename<span class="o">=</span><span class="nv">$iso_path</span>
+    initrd <span class="o">(</span>loop<span class="o">)</span>/casper/initrd
+<span class="o">}</span>
+<span class="c1"># 其中的 UUID=&#34;4b256980-566e-4375-9814-9eb4d150e356&#34;需要替换为步骤4获取的UUID</span>
+<span class="c1"># /casper/vmlinuz 和 /casper/initrd 可以视情况更改为其他路径</span>
+</code></pre></td></tr></table>
+</div>
+</div><ol start="6">
+<li>编辑系统启动项中的grub配置文件：</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">vi /etc/default/grub
+<span class="c1"># 修改（或添加） GRUB_DEFAULT=saved</span>
+<span class="nv">GRUB_DEFAULT</span><span class="o">=</span><span class="s2">&#34;ubuntu-20.04-live-server-amd64.iso&#34;</span>
+</code></pre></td></tr></table>
+</div>
+</div><ol start="7">
+<li>修改后更新grub2配置文件（<strong>ubuntu会出现grub2-mkconfig command not found</strong>） 。</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">grub2-mkconfig --output<span class="o">=</span>/boot/grub2/grub.cfg
+</code></pre></td></tr></table>
+</div>
+</div><ol start="8">
+<li>重启后正常安装，如果在启动时报错：<code>/casper/vmlinuz not found</code>，表明步骤5中的<code>vmlinuz</code>路径设置错误，建议在本地下载ISO，在压缩文件中确认<code>vmlinuz</code>和<code>initrd</code>的路径并修改步骤5中的信息。</li>
+<li>安装完成后需要按照腾讯云文档<a href="https://cloud.tencent.com/document/product/362/6740">卸载</a>云硬盘，并且在腾讯云的<a href="https://console.cloud.tencent.com/cvm/cbs">控制台</a>销毁/退还。</li>
+</ol>
+<p>完成以上步骤后，一个全新的Ubuntu 20.04 LTS即安装完成。如果对于官网镜像没有执着的追求，也可以试试<a href="https://www.94ish.me/1969.html">Linux一键网络重装系统傻瓜版</a>基本方式安装。</p>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1" role="doc-endnote">
+<p>参考文章：<a href="https://laipi.org/read/35.html">阿里云/腾讯云自定义 ISO 重装 Linux 系统</a> <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</section>
+    </div>
+
+    
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E4%BA%91/">从零开始云</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/start_from_scratch_2/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">从零开始云(2)</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:your@email.com" class="iconfont icon-email" title="email"></a>
+      <a href="http://localhost:1313" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="http://localhost:1313" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="http://localhost:1313" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="http://localhost:1313" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="http://localhost:1313" class="iconfont icon-google" title="google"></a>
+      <a href="http://localhost:1313" class="iconfont icon-github" title="github"></a>
+      <a href="http://localhost:1313" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="http://localhost:1313" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="http://localhost:1313" class="iconfont icon-douban" title="douban"></a>
+      <a href="http://localhost:1313" class="iconfont icon-pocket" title="pocket"></a>
+      <a href="http://localhost:1313" class="iconfont icon-tumblr" title="tumblr"></a>
+      <a href="http://localhost:1313" class="iconfont icon-instagram" title="instagram"></a>
+      <a href="http://localhost:1313" class="iconfont icon-gitlab" title="gitlab"></a>
+      <a href="http://localhost:1313" class="iconfont icon-bilibili" title="bilibili"></a>
+  <a href="https://www.nyanpasus.com/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">沪ICP备20004938号-1</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
